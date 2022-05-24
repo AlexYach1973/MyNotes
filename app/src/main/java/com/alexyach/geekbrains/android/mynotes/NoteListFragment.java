@@ -87,6 +87,7 @@ public class NoteListFragment extends Fragment {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, detailFragment)
+                // добавили в BackStack
                 .addToBackStack(null)
                 // Анимация
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -113,11 +114,7 @@ public class NoteListFragment extends Fragment {
 
         Log.d("myLogs", "NF index= " + index);
 
-        return NoteDetailsFragment.newInstance(
-                listNote.get(index).getTitle(),
-                listNote.get(index).getDescribe(),
-                listNote.get(index).getDate(),
-                index);
+        return NoteDetailsFragment.newInstance(listNote.get(index), index);
 
     }
 

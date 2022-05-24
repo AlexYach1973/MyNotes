@@ -1,9 +1,10 @@
 package com.alexyach.geekbrains.android.mynotes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Note {
+public class Note implements Serializable {
 
     public static List<Note> listNote = createList();
 

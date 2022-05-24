@@ -5,8 +5,9 @@
       <map>
         <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/layout-land/activity_main.xml" value="0.1" />
         <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/layout/activity_main.xml" value="0.1361111111111111" />
+        <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/layout/fragment_image_child.xml" value="0.1818642350557244" />
         <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/layout/fragment_note_details.xml" value="0.16018518518518518" />
-        <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/layout/fragment_note_list.xml" value="0.16018518518518518" />
+        <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/layout/fragment_note_list.xml" value="0.25" />
       </map>
     </option>
   </component>

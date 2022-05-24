@@ -35,6 +35,12 @@ public class NoteListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Установка картинки из ChildFragmenta
+        getChildFragmentManager()
+                .beginTransaction()
+                .replace(R.id.image_child_container, new ImageChildFragment())
+                .commit();
+
         // Восстановление текущей позиции
         if (savedInstanceState != null) {
             currentPosition = savedInstanceState.getInt(CURRENT_NOTE, 0);

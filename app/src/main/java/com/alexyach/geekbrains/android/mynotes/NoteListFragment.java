@@ -114,8 +114,7 @@ public class NoteListFragment extends Fragment {
 
         Log.d("myLogs", "NF index= " + index);
 
-        return NoteDetailsFragment.newInstance(listNote.get(index), index);
-
+        return NoteDetailsFragment.newInstance(listNote.get(index));
     }
 
     @Override

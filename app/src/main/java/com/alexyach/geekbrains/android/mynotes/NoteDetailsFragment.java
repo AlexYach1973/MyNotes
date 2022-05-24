@@ -2,6 +2,7 @@ package com.alexyach.geekbrains.android.mynotes;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,6 @@ public class NoteDetailsFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM = "note";
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//    private static final String ARG_PARAM3 = "param3";
     private static final String INDEX = "index";
 
     private static int currentIndex;
@@ -61,10 +59,6 @@ public class NoteDetailsFragment extends Fragment {
 
         if (bundle != null) {
             Note note = (Note) getArguments().getSerializable(ARG_PARAM);
-//            String title = getArguments().getString(ARG_PARAM1);
-//            String description = getArguments().getString(ARG_PARAM2);
-//            String date = getArguments().getString(ARG_PARAM3);
-//            int index = getArguments().getInt(INDEX);
 
             tvTitle.setText(note.getTitle());
             tvDescription.setText(note.getDescribe());
@@ -93,17 +87,15 @@ public class NoteDetailsFragment extends Fragment {
     /**
      * Use this factory method to create a new instance
      */
-    public static NoteDetailsFragment newInstance(Note note, int index) {
+    public static NoteDetailsFragment newInstance(Note note) {
         NoteDetailsFragment fragment = new NoteDetailsFragment();
         Bundle args = new Bundle();
 
-//        args.putString(ARG_PARAM1, title);
-//        args.putString(ARG_PARAM2, description);
-//        args.putString(ARG_PARAM3, date);
         args.putSerializable(ARG_PARAM, note);
-        args.putInt(INDEX, index);
 
-        currentIndex = index;
+        currentIndex = Note.listNote.indexOf(note);
+
+        Log.d("myLogs", "index= " + Note.listNote.indexOf(note));
 
         fragment.setArguments(args);
         return fragment;

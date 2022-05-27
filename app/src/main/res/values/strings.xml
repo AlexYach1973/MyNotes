@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">MyNotes</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="new_notes_button">новая заметка</string>
+    <string name="list_notes">список заметок</string>
+
+<!--    About Fragment-->
+    <string name="hello_blank_fragment">Приложение просто БОМБА. Разработана гениальным человеком.
+        Версия: самая последняя. Поддерживаться особо не будет.</string>
+
+<!--    Drawer Menu-->
+    <string name="drawer_about">о приложении</string>
+    <string name="drawer_main">главная страница</string>
+
+    <string name="navigator_drawer_open">open</string>
+    <string name="navigator_drawer_close">close</string>
+    <string name="back_to_home">назад</string>
 
 </resources>

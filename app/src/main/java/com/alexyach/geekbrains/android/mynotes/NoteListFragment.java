@@ -49,10 +49,6 @@ public class NoteListFragment extends Fragment {
         // инициализация списка
         initList(view);
 
-        // Отображение выбраной ранее записки
-        if (isLandscape()) {
-            showLandNoteDetails(currentPosition);
-        }
     }
 
     private void initList(View view) {
@@ -66,25 +62,17 @@ public class NoteListFragment extends Fragment {
 
             tv.setText(title);
             tv.setTextSize(40);
+            tv.setTextColor(getResources().getColor(R.color.purple_500));
             tv.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
             layout.addView(tv);
 
             final int position = i;
             tv.setOnClickListener(v -> {
                 currentPosition = position;
-                showNoteDetails(position);
+                showPortNoteDetails(position);
             });
         }
     }
-
-    private void showNoteDetails(int index) {
-        if (isLandscape()) {
-            showLandNoteDetails(index);
-        } else {
-            showPortNoteDetails(index);
-        }
-    }
-
 
     private void showPortNoteDetails(int index) {
         // Создаем новый фрагмент
@@ -95,21 +83,6 @@ public class NoteListFragment extends Fragment {
                 .replace(R.id.fragment_container, detailFragment)
                 // добавили в BackStack
                 .addToBackStack(null)
-                // Анимация
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
-    }
-
-    // Показываем детали заметки в ландшафтной ориентации
-    private void showLandNoteDetails(int index) {
-
-        // Создаем новый фрагмент
-        NoteDetailsFragment detailFragment = createDetailFragment(index);
-
-        // Выполняем транзакцию по замене фрагмента
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container_details, detailFragment)
                 // Анимация
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();

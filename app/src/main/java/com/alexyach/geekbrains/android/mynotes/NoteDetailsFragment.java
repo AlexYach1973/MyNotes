@@ -20,7 +20,6 @@ public class NoteDetailsFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM = "note";
-    private static final String INDEX = "index";
 
     private static int currentIndex;
 
@@ -30,10 +29,6 @@ public class NoteDetailsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null) {
-            // Удалили лишний фрагмент вверху стэка обратного вызова
-            requireActivity().getSupportFragmentManager().popBackStack();
-        }
     }
 
     @Override

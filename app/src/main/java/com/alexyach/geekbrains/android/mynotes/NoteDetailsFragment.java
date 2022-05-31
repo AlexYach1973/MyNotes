@@ -1,5 +1,6 @@
 package com.alexyach.geekbrains.android.mynotes;
 
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import java.util.List;
@@ -24,6 +26,16 @@ public class NoteDetailsFragment extends Fragment {
     private static int currentIndex;
 
     List<Note> listNote = Note.listNote;
+
+    // Дата установки календаря
+    String dateString = "";
+
+    // Экземпляр интерфейса, который реализован в NoteListFragment
+    OnDialogListener listener;
+    // Установим слушатель диалога
+    public void setListener(OnDialogListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +60,12 @@ public class NoteDetailsFragment extends Fragment {
         TextView tvDescription = view.findViewById(R.id.text_view_description);
         TextView tvDate = view.findViewById(R.id.text_view_date);
 
+        // Кнопка назад
+       view.findViewById(R.id.button_note_detail_back)
+               .setOnClickListener(view1 -> showAlertDialog());
+
+
+
         DatePicker datePicker = view.findViewById(R.id.date_picker);
 
         Bundle bundle = getArguments();
@@ -62,21 +80,43 @@ public class NoteDetailsFragment extends Fragment {
 
         // Установка даты
         datePicker.setOnDateChangedListener((datePicker1, year, month, day) -> {
-            String dateString = day + "." + (month + 1) + "." + year;
+            dateString = day + "." + (month + 1) + "." + year;
 
             // Отобразили
             tvDate.setText(dateString);
             // Сохранили
             listNote.get(currentIndex).setDate(dateString);
 
-            /*Log.d("myLogs",  "NDF currentIndex= " + currentIndex +
-                    "\n1: " + listNote.get(0).getDate() +
-                    "\n2: " + listNote.get(1).getDate() +
-                    "\n3: " + listNote.get(2).getDate() +
-                    "\n4: " + listNote.get(3).getDate() +
-                    "\n5: " + listNote.get(4).getDate());*/
         });
 
+    }
+
+    private void showAlertDialog() {
+        new AlertDialog.Builder(requireActivity())
+                .setTitle("Внимание!")
+                .setMessage("Новую дату установили?")
+                .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        // Передаем дату
+                        if (dateString.isEmpty()) {
+                            listener.onDialogYes("Новая дата не установлена");
+                        } else {
+                            listener.onDialogYes(dateString);
+                        }
+
+                        requireActivity().getSupportFragmentManager().popBackStack();
+                    }
+                })
+                .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        listener.onDialogYes("Новая дата не установлена");
+                        requireActivity().getSupportFragmentManager().popBackStack();
+                    }
+                })
+                .show();
     }
 
     /**

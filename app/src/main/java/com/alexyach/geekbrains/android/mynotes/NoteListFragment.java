@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.util.List;
 
-public class NoteListFragment extends Fragment {
+public class NoteListFragment extends Fragment implements OnDialogListener {
 
     private static final String CURRENT_NOTE = "CurrentNote";
     private int currentPosition;
@@ -28,6 +29,7 @@ public class NoteListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_note_list, container, false);
     }
 
@@ -77,6 +79,8 @@ public class NoteListFragment extends Fragment {
     private void showPortNoteDetails(int index) {
         // Создаем новый фрагмент
         NoteDetailsFragment detailFragment = createDetailFragment(index);
+        // Передали прослушиватель
+        detailFragment.setListener(this);
 
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction()
@@ -103,10 +107,9 @@ public class NoteListFragment extends Fragment {
 
     }
 
-    // Проверка конфигурации
-    private boolean isLandscape() {
-        return getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_LANDSCAPE;
-    }
+    @Override
+    public void onDialogYes(String str) {
 
+        Toast.makeText(requireActivity(), "Новая дата: " + str, Toast.LENGTH_LONG).show();
+    }
 }

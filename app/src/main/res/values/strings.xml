@@ -3,6 +3,9 @@
     <string name="new_notes_button">новая заметка</string>
     <string name="list_notes">список заметок</string>
 
+<!--    FragmentNoteDetails-->
+    <string name="button_back">назад</string>
+
 <!--    About Fragment-->
     <string name="hello_blank_fragment">Приложение просто БОМБА. Разработана гениальным человеком.
         Версия: самая последняя. Поддерживаться особо не будет.</string>

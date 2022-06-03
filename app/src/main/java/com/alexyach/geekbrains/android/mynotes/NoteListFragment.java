@@ -1,6 +1,5 @@
 package com.alexyach.geekbrains.android.mynotes;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -64,7 +63,7 @@ public class NoteListFragment extends Fragment implements OnDialogListener {
 
             tv.setText(title);
             tv.setTextSize(40);
-            tv.setTextColor(getResources().getColor(R.color.purple_500));
+            tv.setTextColor(getResources().getColor(R.color.purple_500, null));
             tv.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
             layout.addView(tv);
 

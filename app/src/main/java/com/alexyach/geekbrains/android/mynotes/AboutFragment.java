@@ -26,11 +26,7 @@ public class AboutFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button btnBack = view.findViewById(R.id.button_about);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                requireActivity().getSupportFragmentManager().popBackStack();
-            }
-        });
+        btnBack.setOnClickListener(view1 -> requireActivity()
+                .getSupportFragmentManager().popBackStack());
     }
 }

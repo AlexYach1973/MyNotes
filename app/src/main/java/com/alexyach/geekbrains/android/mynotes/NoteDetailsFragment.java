@@ -1,6 +1,5 @@
 package com.alexyach.geekbrains.android.mynotes;
 
-import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -95,26 +94,20 @@ public class NoteDetailsFragment extends Fragment {
         new AlertDialog.Builder(requireActivity())
                 .setTitle("Внимание!")
                 .setMessage("Новую дату установили?")
-                .setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                .setPositiveButton("Да", (dialogInterface, i) -> {
 
-                        // Передаем дату
-                        if (dateString.isEmpty()) {
-                            listener.onDialogYes("Новая дата не установлена");
-                        } else {
-                            listener.onDialogYes(dateString);
-                        }
-
-                        requireActivity().getSupportFragmentManager().popBackStack();
-                    }
-                })
-                .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    // Передаем дату
+                    if (dateString.isEmpty()) {
                         listener.onDialogYes("Новая дата не установлена");
-                        requireActivity().getSupportFragmentManager().popBackStack();
+                    } else {
+                        listener.onDialogYes(dateString);
                     }
+
+                    requireActivity().getSupportFragmentManager().popBackStack();
+                })
+                .setNegativeButton("Нет", (dialogInterface, i) -> {
+                    listener.onDialogYes("Новая дата не установлена");
+                    requireActivity().getSupportFragmentManager().popBackStack();
                 })
                 .show();
     }

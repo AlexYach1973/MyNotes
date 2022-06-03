@@ -1,9 +1,7 @@
 package com.alexyach.geekbrains.android.mynotes;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -53,21 +51,16 @@ public class MainActivity extends AppCompatActivity {
         // Обработка навигационного меню
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item -> {
 
-                switch (item.getItemId()) {
-                    case R.id.action_drawer_about:
+                    if (item.getItemId() == R.id.action_drawer_about) {
                         openAboutFragment();
                         drawer.close();
                         return true;
-
-                }
-
-                return false;
-            }
-        });
+                    }
+    
+                    return false;
+                });
     }
 
     private void openAboutFragment() {

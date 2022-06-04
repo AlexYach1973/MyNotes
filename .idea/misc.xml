@@ -3,13 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/drawable/ic_arrow_back.xml" value="0.1" />
         <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/layout-land/activity_main.xml" value="0.1" />
         <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/layout/activity_main.xml" value="0.1361111111111111" />
         <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/layout/drawer_header.xml" value="0.18135764944275581" />
         <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/layout/fragment_about.xml" value="0.1818642350557244" />
         <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/layout/fragment_image_child.xml" value="0.1818642350557244" />
         <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/layout/fragment_note_details.xml" value="0.16018518518518518" />
-        <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/layout/fragment_note_list.xml" value="0.25" />
+        <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/layout/fragment_note_list.xml" value="0.2" />
+        <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/layout/item_note.xml" value="0.25" />
         <entry key="..\:/GeekBrains/Android_1/JavaCode/MyNotes/app/src/main/res/menu/drawer_menu.xml" value="0.1537037037037037" />
       </map>
     </option>

@@ -5,8 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +12,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.alexyach.geekbrains.android.mynotes.adapter.NotesAdapter;
+import com.alexyach.geekbrains.android.mynotes.adapter.NotesAdapterClickListener;
 
 import java.util.List;
 
@@ -47,32 +50,30 @@ public class NoteListFragment extends Fragment implements OnDialogListener {
             currentPosition = savedInstanceState.getInt(CURRENT_NOTE, 0);
         }
 
-        // инициализация списка
+        // инициализация
         initList(view);
 
     }
 
     private void initList(View view) {
 
-        LinearLayout layout = (LinearLayout) view;
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        LinearLayoutManager llm = new  LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(llm);
 
-        for (int i = 0; i < listNote.size(); i++) {
-
-            String title = listNote.get(i).getTitle();
-            TextView tv = new TextView(getContext());
-
-            tv.setText(title);
-            tv.setTextSize(40);
-            tv.setTextColor(getResources().getColor(R.color.purple_500, null));
-            tv.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
-            layout.addView(tv);
-
-            final int position = i;
-            tv.setOnClickListener(v -> {
-                currentPosition = position;
+        // Adapter
+        NotesAdapter adapter = new NotesAdapter();
+        adapter.setNoteList(listNote);
+        adapter.setListener(new NotesAdapterClickListener() {
+            @Override
+            public void onNoteClick(int position) {
                 showPortNoteDetails(position);
-            });
-        }
+            }
+        });
+//        adapter.setListener(position -> showPortNoteDetails(position));
+
+        recyclerView.setAdapter(adapter);
+
     }
 
     private void showPortNoteDetails(int index) {
@@ -109,6 +110,6 @@ public class NoteListFragment extends Fragment implements OnDialogListener {
     @Override
     public void onDialogYes(String str) {
 
-        Toast.makeText(requireActivity(), "Новая дата: " + str, Toast.LENGTH_LONG).show();
+        Toast.makeText(requireActivity(), "Новая дата: " + str, Toast.LENGTH_SHORT).show();
     }
 }

@@ -26,6 +26,8 @@ public class NoteDetailsFragment extends Fragment {
 
     List<Note> listNote = Note.listNote;
 
+    DatePicker datePicker;
+
     // Дата установки календаря
     String dateString = "";
 
@@ -33,6 +35,7 @@ public class NoteDetailsFragment extends Fragment {
     OnDialogListener listener;
     // Установим слушатель диалога
     public void setListener(OnDialogListener listener) {
+//        Log.d("myLogs", "NoteDetailsFragment: " + listener.getClass().getSimpleName());
         this.listener = listener;
     }
 
@@ -63,9 +66,21 @@ public class NoteDetailsFragment extends Fragment {
        view.findViewById(R.id.button_note_detail_back)
                .setOnClickListener(view1 -> showAlertDialog());
 
+       // Кнопка скрытия/открытия DatePicker
+        view.findViewById(R.id.button_note_detail_date).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (datePicker.getVisibility() == View.VISIBLE) {
+                    datePicker.setVisibility(View.GONE);
+                } else {
+                    datePicker.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
 
-        DatePicker datePicker = view.findViewById(R.id.date_picker);
+        datePicker = view.findViewById(R.id.date_picker);
 
         Bundle bundle = getArguments();
 

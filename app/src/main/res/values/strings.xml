@@ -5,6 +5,7 @@
 
 <!--    FragmentNoteDetails-->
     <string name="button_back">назад</string>
+    <string name="button_date">дата</string>
 
 <!--    About Fragment-->
     <string name="hello_blank_fragment">Приложение просто БОМБА. Разработана гениальным человеком.

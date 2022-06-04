@@ -47,12 +47,19 @@ public class Note implements Serializable {
     private static List<Note> createList() {
         List<Note> list = new ArrayList<>();
 
-        list.add(new Note("Title 1", "description 1", "01.01.2022"));
-        list.add(new Note("Title 2", "description 2", "02.01.2022"));
-        list.add(new Note("Title 3", "description 3", "03.01.2022"));
-        list.add(new Note("Title 4", "description 4", "04.01.2022"));
-        list.add(new Note("Title 5", "description 5\n description 5\n " +
-                "description 5\n description 5\n", "05.01.2022"));
+        list.add(new Note("Зарядка", "Гимнастические упражнения: \n" +
+                "Приседания: 20 раз,\nотжимания 20 раз,\nподтягивания: сколько смогу",
+                "01.01.2022"));
+
+        list.add(new Note("Футбол", "Просто постоять у ворот\n" +
+                "или подавать мячики", "02.01.2022"));
+
+        list.add(new Note("Пиво", "Оттянуться по полной, и за гимнастику и за футбол", "03.01.2022"));
+
+        list.add(new Note("Обучение", "Не забыть сдать вовремя домашку", "04.01.2022"));
+
+        list.add(new Note("Работа", "директор:\nобязательно покритиковать,\n" +
+                "коллеги:\n напомнить, что они все дебилы,\n Я- молодец", "05.01.2022"));
 
         return  list;
     }

@@ -2,11 +2,11 @@ package com.alexyach.geekbrains.android.mynotes;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,16 +15,32 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.alexyach.geekbrains.android.mynotes.activity.IDataSourceHandler;
+import com.alexyach.geekbrains.android.mynotes.activity.MainActivity;
+import com.alexyach.geekbrains.android.mynotes.source.DataSource;
+import com.alexyach.geekbrains.android.mynotes.source.IDataSource;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class NoteDetailsFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM = "note";
+    private static final String ARG_PARAM_NOTE = "note";
+    private static final String ARG_PARAM_INDEX = "index";
 
-    private static int currentIndex;
+    private int currentIndex;
 
-    List<Note> listNote = Note.listNote;
+    // Переданный экземпляр
+    private Note currentNote;
+
+    private IDataSource dataSource;
+    private List<Note> listNote;
+
+    EditText tvTitle, tvDescription;
 
     DatePicker datePicker;
 
@@ -58,11 +74,15 @@ public class NoteDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView tvTitle = view.findViewById(R.id.text_view_title_details);
-        TextView tvDescription = view.findViewById(R.id.text_view_description);
+        //Передали DataSource через MainActivity
+        dataSource = ((IDataSourceHandler) getActivity()).getDataSource();
+        listNote = dataSource.getNotes();
+
+        tvTitle = view.findViewById(R.id.text_view_title_details);
+        tvDescription = view.findViewById(R.id.text_view_description);
         TextView tvDate = view.findViewById(R.id.text_view_date);
 
-        // Кнопка назад
+        // Кнопка назад с Диалогом
        view.findViewById(R.id.button_note_detail_back)
                .setOnClickListener(view1 -> showAlertDialog());
 
@@ -85,31 +105,49 @@ public class NoteDetailsFragment extends Fragment {
         Bundle bundle = getArguments();
 
         if (bundle != null) {
-            Note note = (Note) getArguments().getSerializable(ARG_PARAM);
+            currentNote = (Note) getArguments().getSerializable(ARG_PARAM_NOTE);
+            currentIndex = getArguments().getInt(ARG_PARAM_INDEX);
 
-            tvTitle.setText(note.getTitle());
-            tvDescription.setText(note.getDescribe());
-            tvDate.setText(note.getDate());
+            tvTitle.setText(currentNote.getTitle());
+            tvDescription.setText(currentNote.getDescribe());
+            tvDate.setText(currentNote.getDate());
         }
 
         // Установка даты
         datePicker.setOnDateChangedListener((datePicker1, year, month, day) -> {
-            dateString = day + "." + (month + 1) + "." + year;
+
+            // Calendar
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, month);
+            calendar.set(Calendar.DAY_OF_MONTH, day);
+
+            dateString = getDateFromCalendar(calendar);
 
             // Отобразили
             tvDate.setText(dateString);
             // Сохранили
-            listNote.get(currentIndex).setDate(dateString);
+//            listNote.get(currentIndex).setDate(dateString);
 
         });
 
     }
 
+    private String getDateFromCalendar(Calendar calendar) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
+        Date date = calendar.getTime();
+        return dateFormat.format(date);
+    }
+
     private void showAlertDialog() {
         new AlertDialog.Builder(requireActivity())
                 .setTitle("Внимание!")
-                .setMessage("Новую дату установили?")
+                .setMessage("Сохранить изменения?")
+                // ДА
                 .setPositiveButton("Да", (dialogInterface, i) -> {
+
+                    // Сохраняем изменения
+                    saveChange();
 
                     // Передаем дату
                     if (dateString.isEmpty()) {
@@ -118,8 +156,10 @@ public class NoteDetailsFragment extends Fragment {
                         listener.onDialogYes(dateString);
                     }
 
+                    // Возвращаемся
                     requireActivity().getSupportFragmentManager().popBackStack();
                 })
+                // НЕТ
                 .setNegativeButton("Нет", (dialogInterface, i) -> {
                     listener.onDialogYes("Новая дата не установлена");
                     requireActivity().getSupportFragmentManager().popBackStack();
@@ -127,18 +167,26 @@ public class NoteDetailsFragment extends Fragment {
                 .show();
     }
 
+    private void saveChange() {
+        dataSource.updateNote(new Note(
+                tvTitle.getText().toString(),
+                tvDescription.getText().toString(),
+                dateString
+        ), currentIndex);
+
+    }
+
     /**
      * Use this factory method to create a new instance
      */
-    public static NoteDetailsFragment newInstance(Note note) {
+    public static NoteDetailsFragment newInstance(Note note, int index) {
         NoteDetailsFragment fragment = new NoteDetailsFragment();
         Bundle args = new Bundle();
 
-        args.putSerializable(ARG_PARAM, note);
+        args.putSerializable(ARG_PARAM_NOTE, note);
+        args.putInt(ARG_PARAM_INDEX, index);
 
-        currentIndex = Note.listNote.indexOf(note);
-
-        Log.d("myLogs", "index= " + Note.listNote.indexOf(note));
+//        Log.d("myLogs", "index= " + Note.listNote.indexOf(note));
 
         fragment.setArguments(args);
         return fragment;

@@ -19,4 +19,9 @@
     <string name="navigator_drawer_close">close</string>
     <string name="back_to_home">назад</string>
 
+<!--    Menu NotesListFragment-->
+    <string name="delete_all">удалить все</string>
+
+    <!--    MenuPopup NotesListFragment-->
+    <string name="item_context_delete">удалить</string>
 </resources>

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Note implements Serializable {
 
-    public static List<Note> listNote = createList();
+    public static ArrayList<Note> listNote = createList();
 
     private String title;
     private String describe;
@@ -44,8 +44,8 @@ public class Note implements Serializable {
     }
 
     // Создание заметок
-    private static List<Note> createList() {
-        List<Note> list = new ArrayList<>();
+    private static ArrayList<Note> createList() {
+        ArrayList<Note> list = new ArrayList<>();
 
         list.add(new Note("Зарядка", "Гимнастические упражнения: \n" +
                 "Приседания: 20 раз,\nотжимания 20 раз,\nподтягивания: сколько смогу",

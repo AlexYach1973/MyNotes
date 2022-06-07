@@ -1,4 +1,4 @@
-package com.alexyach.geekbrains.android.mynotes;
+package com.alexyach.geekbrains.android.mynotes.activity;
 
 import android.os.Bundle;
 
@@ -7,9 +7,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.alexyach.geekbrains.android.mynotes.AboutFragment;
+import com.alexyach.geekbrains.android.mynotes.NoteListFragment;
+import com.alexyach.geekbrains.android.mynotes.R;
+import com.alexyach.geekbrains.android.mynotes.source.DataSource;
+import com.alexyach.geekbrains.android.mynotes.source.IDataSource;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IDataSourceHandler {
+
+    private IDataSource dataSource = new DataSource();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,4 +80,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public IDataSource getDataSource() {
+        return dataSource;
+    }
 }

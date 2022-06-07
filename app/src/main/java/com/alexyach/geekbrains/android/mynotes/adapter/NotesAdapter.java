@@ -61,7 +61,17 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
             tvDate = itemView.findViewById(R.id.view_text_item_date);
 
             // Listener. Передали текущую заметку
-            itemView.setOnClickListener(view -> listener.onNoteClick(getAdapterPosition()));
+            itemView.setOnClickListener(view ->
+                    listener.onNoteClick(getAdapterPosition()));
+
+            // Долгое касание
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    listener.onLongItemClick(view, getAdapterPosition());
+                    return true;
+                }
+            });
         }
 
         // Заполняем item
